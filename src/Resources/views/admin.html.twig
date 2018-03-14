@@ -3,6 +3,8 @@
 {% import '@SyliusAdmin/Macro/breadcrumb.html.twig' as breadcrumb %}
 {% form_theme form '@SyliusAdmin/Form/theme.html.twig' %}
 
+{% block title %}{{ section.label|trans }} {{ parent() }}{% endblock %}
+
 {% block content %}
     <div class="ui stackable two column grid">
         <div class="column">
