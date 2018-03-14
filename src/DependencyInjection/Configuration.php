@@ -17,6 +17,22 @@ final class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('phpmob_sylius_settings_plugin');
 
+        $rootNode
+            ->children()
+                ->arrayNode('admin_menu')
+                    ->isRequired()
+                    ->requiresAtLeastOneElement()
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('label')->isRequired()->end()
+                            ->scalarNode('icon')->defaultValue('file')->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
         return $treeBuilder;
     }
 }

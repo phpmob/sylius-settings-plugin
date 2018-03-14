@@ -1,4 +1,58 @@
-{% extends 'SyliusAdminBundle::layout.html.twig' %}
+{% extends '@SyliusAdmin/layout.html.twig' %}
+{% import '@SyliusUi/Macro/headers.html.twig' as headers %}
+{% import '@SyliusAdmin/Macro/breadcrumb.html.twig' as breadcrumb %}
+{% form_theme form '@SyliusAdmin/Form/theme.html.twig' %}
 
 {% block content %}
+    <div class="ui stackable two column grid">
+        <div class="column">
+            {{ headers.default(
+                section.label|trans,
+                phpmob_sylius_settings_plugin_menu_icon(section.name),
+                section.description|default(null)|trans
+            ) }}
+
+            {% set breadcrumbs = [
+                { label: 'sylius.ui.administration'|trans, url: path('sylius_admin_dashboard') },
+                { label: 'phpmob_sylius_settings_plugin.ui.settings'|trans },
+                { label: section.label }
+            ] %}
+
+            {{ breadcrumb.crumble(breadcrumbs) }}
+        </div>
+        <div class="right aligned column">
+
+        </div>
+    </div>
+
+    <div class="ui grid">
+        <div class="three wide column">
+            <div class="ui secondary vertical menu">
+                {% for sec in sections %}
+                    {% set isActive = sec.name == section.name %}
+                    <a class="item {{ isActive ? ' active' : '' }}"
+                       href="{{ path('phpmob_admin_settings', { section: sec.name }) }}">
+                        {{ sec.label|trans }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="thirteen wide stretched column">
+            <div class="ui top attached header">
+                <h4 class="ui header">{{ section.label|trans }}</h4>
+                {% if section.description %}
+                    <h6>{{ section.description|trans }}</h6>
+                {% endif %}
+            </div>
+            <div class="ui attached segment">
+                {{ form_start(form, { attr: { class: 'ui form' } }) }}
+                {{ form_errors(form) }}
+                {{ form_row(form, { label: false }) }}
+                <button class="ui labeled icon primary button" type="submit" id="sylius_save_changes_button">
+                    <i class="save icon"></i> {{ 'sylius.ui.save_changes'|trans }}
+                </button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

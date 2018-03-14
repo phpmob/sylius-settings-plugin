@@ -14,9 +14,20 @@ final class PhpMobSyliusSettingsExtension extends Extension
     /**
      * {@inheritdoc}
      */
+    public function getAlias()
+    {
+        return 'phpmob_sylius_settings_plugin';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function load(array $config, ContainerBuilder $container): void
     {
         $config = $this->processConfiguration($this->getConfiguration([], $container), $config);
+        $container->setParameter('phpmob_sylius_settings_plugin_admin_menus', $config['admin_menu']);
+
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('services.xml');
     }
 }

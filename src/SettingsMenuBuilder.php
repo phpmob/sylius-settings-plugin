@@ -9,6 +9,16 @@ use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 final class SettingsMenuBuilder
 {
     /**
+     * @var array
+     */
+    private $menus = [];
+
+    public function __construct(array $menus)
+    {
+        $this->menus = $menus;
+    }
+
+    /**
      * @param MenuBuilderEvent $menuBuilderEvent
      */
     public function buildMenu(MenuBuilderEvent $menuBuilderEvent): void
@@ -17,15 +27,16 @@ final class SettingsMenuBuilder
 
         $cmsRootMenuItem = $menu
             ->addChild('phpmob_settings')
-            ->setLabel('phpmob_sylius_settings_plugin.ui.settings')
-        ;
+            ->setLabel('phpmob_sylius_settings_plugin.ui.settings');
 
-        $cmsRootMenuItem
-            ->addChild('systems', [
-                'route' => 'phpmob_sylius_settings_plugin_admin_systems'
-            ])
-            ->setLabel('phpmob_sylius_settings_plugin.ui.systems')
-            ->setLabelAttribute('icon', 'cog')
-        ;
+        foreach ($this->menus as $section => $menu) {
+            $cmsRootMenuItem
+                ->addChild('systems', [
+                    'route' => 'phpmob_admin_settings',
+                    'routeParameters' => ['section' => $section]
+                ])
+                ->setLabel($menu['label'])
+                ->setLabelAttribute('icon', $menu['icon']);
+        }
     }
 }

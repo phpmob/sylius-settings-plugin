@@ -1,0 +1,5 @@
+phpmob_admin_settings:
+    path: /settings/{section}
+    defaults:
+        _controller: PhpMobSettingsBundle:Update:globalUpdate
+        _template: '@PhpMobSyliusSettingsPlugin/admin.html.twig'
