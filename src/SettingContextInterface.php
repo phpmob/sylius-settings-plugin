@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PhpMob\SyliusSettingsPlugin;
 
+use Sylius\Component\User\Model\UserInterface;
+
 interface SettingContextInterface
 {
     /**
