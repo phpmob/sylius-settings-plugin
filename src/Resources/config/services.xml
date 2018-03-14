@@ -13,5 +13,9 @@
             <argument>%phpmob_sylius_settings_plugin_admin_menus%</argument>
             <tag name="twig.extension"/>
         </service>
+        <service class="PhpMob\SyliusSettingsPlugin\SettingContext" id="sylius.context.settings" public="true">
+            <argument type="service" id="phpmob.settings.manager"/>
+            <argument type="service" id="sylius.context.locale"/>
+        </service>
     </services>
 </container>
