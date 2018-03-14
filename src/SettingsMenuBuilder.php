@@ -31,7 +31,7 @@ final class SettingsMenuBuilder
 
         foreach ($this->menus as $section => $menu) {
             $cmsRootMenuItem
-                ->addChild('systems', [
+                ->addChild($section, [
                     'route' => 'phpmob_admin_settings',
                     'routeParameters' => ['section' => $section]
                 ])
