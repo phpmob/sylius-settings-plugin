@@ -1,0 +1,4 @@
+suites:
+    main:
+        namespace: PhpMob\SyliusSettingsPlugin
+        psr4_prefix: PhpMob\SyliusSettingsPlugin
